@@ -1,36 +1,36 @@
-function Semitones (startnote: number, interval: number) {
+input.onButtonPressed(Button.A, function () {
+    if (semitone == 0) {
+        semitone = 11
+    } else {
+        semitone += -1
+    }
+    freq = adjustFreq(freq, -1)
+    music.playTone(freq, music.beat(BeatFraction.Eighth))
+    showLetter(semitone)
+})
+function adjustFreq (startfreq: number, interval: number) {
     let numerator: number
 if (interval > 0) {
         numerator = 10595
     } else {
         numerator = 9439
     }
-    let localnote: number
-localnote = startnote
+    let localfreq: number
+localfreq = startfreq
     for (let index = 0; index < Math.abs(interval); index++) {
-        localnote = localnote * numerator / 10000
+        localfreq = localfreq * numerator / 10000
     }
-    return localnote
+    return localfreq
 }
-input.onButtonPressed(Button.A, function () {
-    if (count == 0) {
-        count = 11
-    } else {
-        count += -1
-    }
-    note = Semitones(note, -1)
-    music.playTone(note, music.beat(BeatFraction.Quarter))
-    showLetter(count)
-})
 input.onButtonPressed(Button.B, function () {
-    if (count == 11) {
-        count = 0
+    if (semitone == 11) {
+        semitone = 0
     } else {
-        count += 1
+        semitone += 1
     }
-    note = Semitones(note, 1)
-    music.playTone(note, music.beat(BeatFraction.Quarter))
-    showLetter(count)
+    freq = adjustFreq(freq, 1)
+    music.playTone(freq, music.beat(BeatFraction.Eighth))
+    showLetter(semitone)
 })
 function showLetter (num: number) {
     letters = "CCDDEFFGGAAB"
@@ -54,15 +54,13 @@ function showLetter (num: number) {
     }
 }
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-    music.playTone(note, music.beat(BeatFraction.Quarter))
+    music.playTone(freq, music.beat(BeatFraction.Quarter))
 })
 let sharp: number[] = []
 let letters = ""
-let count: number
-count = 0
-let note: number
-note = 262
+let semitone: number
+let freq: number
+semitone = 0
+freq = 262
+bluetooth.startLEDService()
 basic.showIcon(IconNames.EigthNote)
-basic.forever(function () {
-	
-})
