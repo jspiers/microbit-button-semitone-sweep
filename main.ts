@@ -58,7 +58,6 @@ input.onLogoEvent(TouchButtonEvent.Pressed, function () {
 })
 let sharp: number[] = []
 let letters = ""
-bluetooth.startLEDService()
 let count: number
 count = 0
 let note: number
